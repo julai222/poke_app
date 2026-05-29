@@ -1,0 +1,119 @@
+import React from "react";
+import { ScrollView, Text, Image, View, StyleSheet } from "react-native";
+
+export default function Detalles({ route }) {
+  const { pokemon } = route.params;
+
+  return (
+    <ScrollView style={styles.detallesContainer}>
+      <Text style={styles.titulo}>{pokemon.name.toUpperCase()}</Text>
+
+      <Image
+        style={styles.imagenGrande}
+        source={{
+          uri: pokemon.sprites.front_default,
+        }}
+      />
+
+      <View style={styles.card}>
+        <Text style={styles.subtitulo}>Información</Text>
+
+        <Text style={styles.texto}>ID: {pokemon.id}</Text>
+        <Text style={styles.texto}>Altura: {pokemon.height}</Text>
+        <Text style={styles.texto}>Peso: {pokemon.weight}</Text>
+        <Text style={styles.texto}>EXP: {pokemon.base_experience}</Text>
+      </View>
+
+      <View style={styles.cardTipos}>
+        <Text style={styles.subtitulo}>Tipos</Text>
+
+        {pokemon.types.map((item, index) => (
+          <Text key={index} style={styles.tipoTexto}>
+            {item.type.name}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.cardStats}>
+        <Text style={styles.subtitulo}>Estadísticas</Text>
+
+        {pokemon.stats.map((item, index) => (
+          <View key={index} style={styles.statsContainer}>
+            <Text style={styles.texto}>{item.stat.name}</Text>
+            <Text style={styles.texto}>{item.base_stat}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  detallesContainer: {
+    flex: 1,
+    backgroundColor: "#ffcb05",
+    padding: 20,
+  },
+
+  titulo: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#2a75bb",
+  },
+
+  imagenGrande: {
+    width: 220,
+    height: 220,
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+
+  card: {
+    backgroundColor: "#ffffff",
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+
+  cardTipos: {
+    backgroundColor: "#2a75bb",
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+
+  cardStats: {
+    backgroundColor: "#ff0000",
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 40,
+  },
+
+  texto: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: "#222",
+  },
+
+  subtitulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 15,
+    color: "black",
+  },
+
+  tipoTexto: {
+    fontSize: 20,
+    color: "white",
+    marginBottom: 10,
+    textTransform: "capitalize",
+  },
+
+  statsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+});
